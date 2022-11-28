@@ -1,12 +1,12 @@
-import { SDKOptions } from '@/types'
+import { SDKOptions } from '../../types'
 import { Prisma, Product } from '@prisma/client'
-import * as client from '@/lib/client'
-import { PaymentRouter } from '@/modules/contracts/payment-router'
+import * as client from '../../lib/client'
+import { PaymentRouter } from '../../modules/contracts/payment-router'
 import { formatBytes32String } from 'ethers/lib/utils'
 import { Contracts } from '../contracts'
 import { Signer } from 'ethers'
 import { NetworkConfig } from '../network-config/network-config.module'
-import { isSameAddress } from '@/lib/utils/addresses'
+import { isSameAddress } from '../../lib/utils/addresses'
 
 export class Products {
   constructor(
@@ -20,12 +20,18 @@ export class Products {
     return this.decorateWithMethods(product)
   }
 
-  async find(where: client.types.ProductFilters, fetchOptions: RequestInit = {}) {
+  async find(
+    where: client.types.ProductFilters,
+    fetchOptions: RequestInit = {}
+  ) {
     const products = await client.products.find(where, fetchOptions)
     return products.map(this.decorateWithMethods)
   }
 
-  async create(data: Prisma.ProductCreateInput, fetchOptions: RequestInit = {}) {
+  async create(
+    data: Prisma.ProductCreateInput,
+    fetchOptions: RequestInit = {}
+  ) {
     const product = await client.products.create(data, fetchOptions)
     return this.decorateWithMethods(product)
   }
@@ -51,13 +57,18 @@ export class Products {
     return {
       to: this.paymentRouter.address,
       data,
-      value
+      value,
     }
   }
 
   sendPayment(product: Product, signer: Signer) {
     const config = NetworkConfig.get(product.network)
-    const { amount, recipientAddress: recipient, eventRef, tokenAddress } = product
+    const {
+      amount,
+      recipientAddress: recipient,
+      eventRef,
+      tokenAddress,
+    } = product
     let value = undefined
     if (isSameAddress(tokenAddress, config.nativeAsset.address)) {
       value = amount
@@ -65,7 +76,17 @@ export class Products {
     const id = formatBytes32String(eventRef)
 
     this.contracts.connect(signer)
-    this.contracts.paymentRouter.makePayment(tokenAddress, amount, recipient, id, { value })
+    if (this.contracts.paymentRouter) {
+      this.contracts.paymentRouter.makePayment(
+        tokenAddress,
+        amount,
+        recipient,
+        id,
+        { value }
+      )
+    } else {
+      throw 'Network not supported'
+    }
   }
 
   decorateWithMethods(product: Product) {

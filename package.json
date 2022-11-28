@@ -13,7 +13,8 @@
     "publish-packages": "turbo run build lint test && changeset version && changeset publish"
   },
   "devDependencies": {
-    "eslint-config-custom": "*",
+    "eslint-config-custom": "workspace:*",
+    "tsconfig": "workspace: *",
     "prettier": "^2.7.1",
     "turbo": "latest",
     "dotenv": "^16.0.3"

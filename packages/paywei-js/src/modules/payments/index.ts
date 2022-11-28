@@ -1,5 +1,5 @@
-import { SDKOptions } from "@/types";
-import * as client from '@/lib/client'
+import { SDKOptions } from '../../types'
+import * as client from '../../lib/client'
 
 export class Payments {
   constructor(options: SDKOptions) {}
