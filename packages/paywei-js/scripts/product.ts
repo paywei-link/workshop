@@ -1,6 +1,6 @@
 /**
  * Create a product
- * 
+ *
  * npm run product create [filename = ./product.json]
  */
 
@@ -23,13 +23,17 @@ const main = async () => {
       const created = await paywei.products.create(product)
       const newProduct = {
         ...product,
-        ...created
+        ...created,
       }
       console.log('Created', newProduct)
       console.log('Saving')
-      fs.writeFileSync(productFilename, JSON.stringify(newProduct, null, 2), 'utf8')
+      fs.writeFileSync(
+        productFilename,
+        JSON.stringify(newProduct, null, 2),
+        'utf8'
+      )
       console.log('Saved')
-    } catch(error) {
+    } catch (error) {
       console.log(error)
     }
   } else if (command == 'get') {

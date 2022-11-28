@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const { build } = require('esbuild')
 const { dependencies, peerDependencies } = require('./package.json')
 const { Generator } = require('npm-dts')
@@ -10,7 +11,9 @@ new Generator({
 const shared = {
   entryPoints: ['src/index.ts'],
   bundle: true,
-  external: Object.keys(dependencies).concat(Object.keys(peerDependencies)).concat(['.dethcrypto/eth-sdk-client']),
+  external: Object.keys(dependencies)
+    .concat(Object.keys(peerDependencies))
+    .concat(['.dethcrypto/eth-sdk-client']),
 }
 
 build({

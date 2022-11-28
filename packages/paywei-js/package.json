@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "node build.js",
-    "lint": "eslint . --ext .js,.ts --max-warnings 0",
+    "lint": "eslint . --ext .js,.ts",
     "lint:fix": "npm run lint -- --fix",
     "eth-sdk": "npx eth-sdk --path ./src/lib/eth-sdk",
     "typechain": "npx typechain --target ethers-v5 --out-dir src/lib/typechain './src/modules/abi/abis/*.json'",
