@@ -1,0 +1,13 @@
+{
+  "chainId": 42161,
+  "contracts": {
+    "paymentRouterV1": "0xDA4212A38B2FFE79B42Efa098db1C544387d9eF2"
+  },
+  "nativeAsset": {
+    "name": "Ether",
+    "address": "0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE",
+    "symbol": "ETH",
+    "decimals": 18,
+    "logoURI": "https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2/logo.png"
+  }
+}

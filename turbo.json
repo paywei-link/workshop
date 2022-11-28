@@ -1,0 +1,26 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "globalDependencies": [".env"],
+  "globalEnv": ["INFURA_KEY"],
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".next/**"]
+    },
+    "lint": {
+      "outputs": []
+    },
+    "dev": {
+      "cache": false
+    },
+    "test": {
+      "outputs": []
+    },
+    "test:watch": {
+      "cache": false
+    },
+    "test:coverage": {
+      "outputs": []
+    }
+  }
+}
